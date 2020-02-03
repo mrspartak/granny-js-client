@@ -26,12 +26,12 @@
     "postversion": "git push && git push --tags"
   },
   "devDependencies": {
-    "babel-runtime": "^6.26.0",
     "@babel/core": "^7.8.4",
     "babelify": "^10.0.0",
     "prettier": "1.19.1"
   },
   "dependencies": {
+    "babel-runtime": "^6.26.0",
     "superagent": "^5.2.1"
   },
   "browserify": {
