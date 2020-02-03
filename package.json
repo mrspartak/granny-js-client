@@ -12,8 +12,8 @@
     "url": "https://github.com/mrspartak/granny-js-client.git"
   },
   "license": "MIT",
-  "main": "src/granny.js",
-  "browser": "build/granny.js",
+  "main": "src/index.js",
+  "browser": "build/index.js",
   "scripts": {
     "dev": "watchify src/index.js -s Granny -v -o build/index.js",
     "build": "browserify src/index.js -s Granny -v -o build/index.js",

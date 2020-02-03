@@ -29,6 +29,9 @@
     -   [uploadImage][25]
         -   [Parameters][26]
         -   [Examples][27]
+    -   [listDirectory][28]
+        -   [Parameters][29]
+        -   [Examples][30]
 
 ## Granny
 
@@ -36,11 +39,11 @@ A Granny API contructor
 
 ### Parameters
 
--   `options` **[Object][28]** Setup object (optional, default `{}`)
-    -   `options.accessToken` **[string][29]** Login acces token to use for managment API
-    -   `options.domain` **[string][29]** Granny server domain to send API request to
-    -   `options.accessKey` **[string][29]** Granny server domain accessKey
-    -   `options.accessSecret` **[string][29]** Granny server domain accessSecret
+-   `options` **[Object][31]** Setup object (optional, default `{}`)
+    -   `options.accessToken` **[string][32]** Login acces token to use for managment API
+    -   `options.domain` **[string][32]** Granny server domain to send API request to
+    -   `options.accessKey` **[string][32]** Granny server domain accessKey
+    -   `options.accessSecret` **[string][32]** Granny server domain accessSecret
 
 ### setOptions
 
@@ -48,10 +51,10 @@ Update domain specific options
 
 #### Parameters
 
--   `options` **[Object][28]** Setup object
-    -   `options.domain` **[string][29]** Granny server domain to send API request to
-    -   `options.accessKey` **[string][29]** Granny server domain accessKey
-    -   `options.accessSecret` **[string][29]** Granny server domain accessSecret
+-   `options` **[Object][31]** Setup object
+    -   `options.domain` **[string][32]** Granny server domain to send API request to
+    -   `options.accessKey` **[string][32]** Granny server domain accessKey
+    -   `options.accessSecret` **[string][32]** Granny server domain accessSecret
 
 ### setAccessToken
 
@@ -59,7 +62,7 @@ Update login access token
 
 #### Parameters
 
--   `token` **[string][29]** Login acces token to use for managment API
+-   `token` **[string][32]** Login acces token to use for managment API
 
 ### setDomain
 
@@ -67,7 +70,7 @@ Update domain to send API to
 
 #### Parameters
 
--   `domain` **[string][29]** 
+-   `domain` **[string][32]** 
 
 ### getStatus
 
@@ -79,7 +82,7 @@ Open API | Get server/client status
 var [err, result] = await api.getStatus()
 ```
 
-Returns **[Promise][30]** [Error, Result]
+Returns **[Promise][33]** [Error, Result]
 
 ### setup
 
@@ -87,9 +90,9 @@ Auth API | Setup server with your credentials when first launched
 
 #### Parameters
 
--   `credentials` **[Object][28]** credentials object
-    -   `credentials.login` **[String][29]** 
-    -   `credentials.password` **[String][29]** 
+-   `credentials` **[Object][31]** credentials object
+    -   `credentials.login` **[String][32]** 
+    -   `credentials.password` **[String][32]** 
 
 #### Examples
 
@@ -97,7 +100,7 @@ Auth API | Setup server with your credentials when first launched
 var [err, result] = await api.setup({ login: 'login', password: 'password' })
 ```
 
-Returns **[Promise][30]** [Error, Result]
+Returns **[Promise][33]** [Error, Result]
 
 ### login
 
@@ -105,9 +108,9 @@ Auth API | Login and get your access token
 
 #### Parameters
 
--   `credentials` **[Object][28]** credentials object
-    -   `credentials.login` **[String][29]** 
-    -   `credentials.password` **[String][29]** 
+-   `credentials` **[Object][31]** credentials object
+    -   `credentials.login` **[String][32]** 
+    -   `credentials.password` **[String][32]** 
 
 #### Examples
 
@@ -115,7 +118,7 @@ Auth API | Login and get your access token
 var [err, result] = await api.login({ login: 'login', password: 'password' })
 ```
 
-Returns **[Promise][30]** [Error, Result]
+Returns **[Promise][33]** [Error, Result]
 
 ### addDomain
 
@@ -123,8 +126,8 @@ Domain API | Add new domain to serve your files
 
 #### Parameters
 
--   `options` **[Object][28]** options object
-    -   `options.domain` **[String][29]** full domain name
+-   `options` **[Object][31]** options object
+    -   `options.domain` **[String][32]** full domain name
 
 #### Examples
 
@@ -132,7 +135,7 @@ Domain API | Add new domain to serve your files
 var [err, result] = await api.addDomain({ domain: 'cdn.example.com' })
 ```
 
-Returns **[Promise][30]** [Error, Result]
+Returns **[Promise][33]** [Error, Result]
 
 ### getDomain
 
@@ -140,8 +143,8 @@ Domain API | Get all domain information
 
 #### Parameters
 
--   `options` **[Object][28]** options object
-    -   `options.domain` **[String][29]** full domain name
+-   `options` **[Object][31]** options object
+    -   `options.domain` **[String][32]** full domain name
 
 #### Examples
 
@@ -149,7 +152,7 @@ Domain API | Get all domain information
 var [err, result] = await api.getDomain({ domain: 'cdn.example.com' })
 ```
 
-Returns **[Promise][30]** [Error, Result]
+Returns **[Promise][33]** [Error, Result]
 
 ### listDomains
 
@@ -161,7 +164,7 @@ Domain API | Get all domains
 var [err, result] = await api.listDomains()
 ```
 
-Returns **[Promise][30]** [Error, Result]
+Returns **[Promise][33]** [Error, Result]
 
 ### uploadImage
 
@@ -169,8 +172,8 @@ Image API | Upload image
 
 #### Parameters
 
--   `options` **[Object][28]** options object
-    -   `options.path` **[String][29]** relative path for the image you want it will be avialable
+-   `options` **[Object][31]** options object
+    -   `options.path` **[String][32]** relative path for the image you want it will be avialable
     -   `options.image` **File** image
 
 #### Examples
@@ -179,7 +182,24 @@ Image API | Upload image
 var [err, result] = await api.uploadImage({ path: '/avatars/user_1.jpg', image: new Buffer(...) })
 ```
 
-Returns **[Promise][30]** [Error, Result]
+Returns **[Promise][33]** [Error, Result]
+
+### listDirectory
+
+Directory API | Get listing for given path
+
+#### Parameters
+
+-   `options` **[Object][31]** options object
+    -   `options.path` **[String][32]** relative path for getting content
+
+#### Examples
+
+```javascript
+var [err, result] = await api.listDirectory({ path: '/avatars/' })
+```
+
+Returns **[Promise][33]** [Error, Result]
 
 [1]: #granny
 
@@ -235,8 +255,14 @@ Returns **[Promise][30]** [Error, Result]
 
 [27]: #examples-6
 
-[28]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[28]: #listdirectory
 
-[29]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[29]: #parameters-9
 
-[30]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[30]: #examples-7
+
+[31]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[32]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[33]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
