@@ -55,10 +55,7 @@ Granny.prototype.request = async function(method, path, data = {}, options = {})
 				request = request.set('Authorization', this.accessToken);
 
 			if (options.auth.indexOf('accessKey') != -1 && this.accessKey && this.accessSecret) {
-				let sign =
-					this.accessKey +
-					'||' +
-					crypto
+				let sign = this.accessKey + '||' + crypto
 						.createHmac('sha1', this.accessSecret)
 						.update(this.accessKey)
 						.digest('hex');
@@ -86,9 +83,95 @@ Granny.prototype.request = async function(method, path, data = {}, options = {})
 	}
 };
 
+/* API */
+
 /* openAPI */
-require('./components/openAPI.js');
-require('./components/authAPI.js');
-require('./components/domainAPI.js');
-require('./components/imageAPI.js');
-require('./components/directoryAPI.js');
+Granny.prototype.getStatus = async function() {
+	return await this.request('GET', '/_status', {}, { auth: ['accessToken'] });
+};
+
+
+/* authAPI */
+Granny.prototype.setup = async function({ login, password }) {
+	var [err, result] = await this.request('POST', '/auth/setup', {
+		form: {
+			login,
+			password,
+		},
+	});
+
+	if (!err && result) this.setAccessToken(result.accessToken);
+	return [err, result];
+};
+
+Granny.prototype.login = async function({ login, password }) {
+	var [err, result] = await this.request('POST', '/auth/login', {
+		form: {
+			login,
+			password,
+		},
+	});
+
+	if (!err && result) this.setAccessToken(result.accessToken);
+	return [err, result];
+};
+
+/* domainAPI */
+Granny.prototype.addDomain = async function({ domain }) {
+	var [err, result, response] = await this.request(
+		'POST',
+		'/domain/add',
+		{
+			form: {
+				domain,
+			},
+		},
+		{ auth: ['accessToken'] },
+	);
+	return [err, result ? result.domain : null, response];
+};
+
+Granny.prototype.getDomain = async function({ domain } = false) {
+	var [err, result, response] = await this.request('GET', '/domain/id/' + domain, {}, { auth: ['accessToken'] });
+	return [err, result ? result.domain : null, response];
+};
+
+Granny.prototype.listDomains = async function() {
+	var [err, result, response] = await this.request('GET', '/domain/list', {}, { auth: ['accessToken'] });
+	return [err, result ? result.domains : null, response];
+};
+
+
+/* imageAPI */
+Granny.prototype.uploadImage = async function({ path, image }) {
+	var [err, result, response] = await this.request(
+		'POST',
+		'/image/upload',
+		{
+			form: {
+				path,
+			},
+			file: image,
+		},
+		{ auth: ['accessKey'] },
+	);
+
+	return [err, result ? result : null, response];
+};
+
+
+/* directoryAPI */
+Granny.prototype.listDirectory = async function({ path }) {
+	var [err, result, response] = await this.request(
+		'GET',
+		'/directory/list',
+		{
+			query: {
+				path,
+			},
+		},
+		{ auth: ['accessKey'] },
+	);
+
+	return [err, result ? result : null, response];
+};

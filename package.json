@@ -15,16 +15,22 @@
   "main": "src/granny.js",
   "browser": "build/granny.js",
   "scripts": {
-    "dev": "watchify src/granny.js -s Granny -v -o build/granny.js",
-    "build": "browserify src/granny.js -s Granny -v -o build/granny.js",
+    "dev": "watchify src/index.js -s Granny -v -o build/index.js",
+    "build": "browserify src/index.js -s Granny -v -o build/index.js",
     "format": "prettier --write \"src/**/*.js\""
   },
   "devDependencies": {
-    "browserify": "^16.5.0",
-    "prettier": "1.19.1",
-    "watchify": "^3.11.1"
+    "@babel/core": "^7.8.4",
+    "babelify": "^10.0.0",
+    "prettier": "1.19.1"
   },
   "dependencies": {
+    "babel-runtime": "^6.26.0",
     "superagent": "^5.2.1"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
   }
 }
