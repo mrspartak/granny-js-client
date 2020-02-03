@@ -16,7 +16,7 @@
   "browser": "build/index.js",
   "scripts": {
     "dev": "watchify src/index.js -s Granny -v -o build/index.js",
-    "build": "browserify src/index.js -s Granny -v -o build/index.js",
+    "build": "cp src/index.js tmp/index.js && browserify tmp/index.js -s Granny -v -o build/index.js",
     "format": "prettier --write \"src/**/*.js\"",
     "doc": "documentation build src/index.js -f md > API.md",
     "prepare": "npm run build",
