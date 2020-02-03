@@ -18,7 +18,12 @@
     "dev": "watchify src/index.js -s Granny -v -o build/index.js",
     "build": "browserify src/index.js -s Granny -v -o build/index.js",
     "format": "prettier --write \"src/**/*.js\"",
-    "doc": "documentation build src/index.js -f md > API.md"
+    "doc": "documentation build src/index.js -f md > API.md",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run format",
+    "preversion": "npm run format",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
