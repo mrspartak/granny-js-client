@@ -110,10 +110,7 @@ Granny.prototype.request = async function(method, path, data = {}, options = {})
 	}
 };
 
-
-
 /* API */
-
 
 /* openAPI */
 /**
@@ -125,7 +122,6 @@ Granny.prototype.request = async function(method, path, data = {}, options = {})
 Granny.prototype.getStatus = async function() {
 	return await this.request('GET', '/_status', {}, { auth: ['accessToken'] });
 };
-
 
 /* authAPI */
 /**
@@ -169,7 +165,6 @@ Granny.prototype.login = async function({ login, password }) {
 	if (!err && result) this.setAccessToken(result.accessToken);
 	return [err, result];
 };
-
 
 /* domainAPI */
 /**
