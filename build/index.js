@@ -14510,7 +14510,7 @@ module.exports={
   "_id": "elliptic@6.5.2",
   "_inBundle": false,
   "_integrity": "sha512-f4x70okzZbIQl/NSRLkI/+tteV/9WqL98zx+SQ69KbXxmVrmjwsNUPn/gYJJ0sHvEak24cZgHIPegRePAtA/xw==",
-  "_location": "/browserify/elliptic",
+  "_location": "/watchify/elliptic",
   "_phantomChildren": {},
   "_requested": {
     "type": "range",
@@ -14523,13 +14523,13 @@ module.exports={
     "fetchSpec": "^6.0.0"
   },
   "_requiredBy": [
-    "/browserify/browserify-sign",
-    "/browserify/create-ecdh"
+    "/watchify/browserify-sign",
+    "/watchify/create-ecdh"
   ],
   "_resolved": "https://registry.npmjs.org/elliptic/-/elliptic-6.5.2.tgz",
   "_shasum": "05c5678d7173c049d8ca433552224a495d0e3762",
   "_spec": "elliptic@^6.0.0",
-  "_where": "C:\\Users\\spartak\\AppData\\Roaming\\npm\\node_modules\\browserify\\node_modules\\browserify-sign",
+  "_where": "C:\\Users\\spartak\\AppData\\Roaming\\npm\\node_modules\\watchify\\node_modules\\browserify-sign",
   "author": {
     "name": "Fedor Indutny",
     "email": "fedor@indutny.com"
@@ -25506,6 +25506,14 @@ const crypto = require('crypto');
 require('util').inherits(Granny, require('events').EventEmitter);
 
 module.exports = Granny;
+/**
+ * A Granny API contructor
+ * @param {Object} options - Setup object
+ * @param {string} options.accessToken - Login acces token to use for managment API
+ * @param {string} options.domain - Granny server domain to send API request to
+ * @param {string} options.accessKey - Granny server domain accessKey
+ * @param {string} options.accessSecret - Granny server domain accessSecret
+ */
 
 function Granny(options = {}) {
   /* Access level / credentials */
@@ -25518,6 +25526,14 @@ function Granny(options = {}) {
   this.accessKey = options.accessKey || '';
   this.accessSecret = options.accessSecret || '';
 }
+/**
+ * Update domain specific options
+ * @param {Object} options - Setup object
+ * @param {string} options.domain - Granny server domain to send API request to
+ * @param {string} options.accessKey - Granny server domain accessKey
+ * @param {string} options.accessSecret - Granny server domain accessSecret
+ */
+
 
 Granny.prototype.setOptions = function (options) {
   /* Access level / domain */
@@ -25525,10 +25541,20 @@ Granny.prototype.setOptions = function (options) {
   if (options.accessKey) this.accessKey = options.accessKey;
   if (options.accessSecret) this.accessSecret = options.accessSecret;
 };
+/**
+ * Update login access token
+ * @param {string} token - Login acces token to use for managment API
+ */
+
 
 Granny.prototype.setAccessToken = function (token) {
   this.accessToken = token;
 };
+/**
+ * Update domain to send API to
+ * @param {string} domain
+ */
+
 
 Granny.prototype.setDomain = function (domain) {
   this.domain = domain;
@@ -25586,6 +25612,13 @@ Granny.prototype.request = async function (method, path, data = {}, options = {}
 
 /* openAPI */
 
+/**
+ * Open API | Get server/client status
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, result] = await api.getStatus()
+ */
+
 
 Granny.prototype.getStatus = async function () {
   return await this.request('GET', '/_status', {}, {
@@ -25593,6 +25626,16 @@ Granny.prototype.getStatus = async function () {
   });
 };
 /* authAPI */
+
+/**
+ * Auth API | Setup server with your credentials when first launched
+ * @param {Object} credentials - credentials object
+ * @param {String} credentials.login
+ * @param {String} credentials.password
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, result] = await api.setup({ login: 'login', password: 'password' })
+ */
 
 
 Granny.prototype.setup = async function ({
@@ -25608,6 +25651,16 @@ Granny.prototype.setup = async function ({
   if (!err && result) this.setAccessToken(result.accessToken);
   return [err, result];
 };
+/**
+ * Auth API | Login and get your access token
+ * @param {Object} credentials - credentials object
+ * @param {String} credentials.login
+ * @param {String} credentials.password
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, result] = await api.login({ login: 'login', password: 'password' })
+ */
+
 
 Granny.prototype.login = async function ({
   login,
@@ -25624,6 +25677,15 @@ Granny.prototype.login = async function ({
 };
 /* domainAPI */
 
+/**
+ * Domain API | Add new domain to serve your files
+ * @param {Object} options - options object
+ * @param {String} options.domain - full domain name
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, result] = await api.addDomain({ domain: 'cdn.example.com' })
+ */
+
 
 Granny.prototype.addDomain = async function ({
   domain
@@ -25637,15 +25699,31 @@ Granny.prototype.addDomain = async function ({
   });
   return [err, result ? result.domain : null, response];
 };
+/**
+ * Domain API | Get all domain information
+ * @param {Object} options - options object
+ * @param {String} options.domain - full domain name
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, result] = await api.getDomain({ domain: 'cdn.example.com' })
+ */
+
 
 Granny.prototype.getDomain = async function ({
   domain
-} = false) {
+}) {
   var [err, result, response] = await this.request('GET', '/domain/id/' + domain, {}, {
     auth: ['accessToken']
   });
   return [err, result ? result.domain : null, response];
 };
+/**
+ * Domain API | Get all domains
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, result] = await api.listDomains()
+ */
+
 
 Granny.prototype.listDomains = async function () {
   var [err, result, response] = await this.request('GET', '/domain/list', {}, {
@@ -25654,6 +25732,16 @@ Granny.prototype.listDomains = async function () {
   return [err, result ? result.domains : null, response];
 };
 /* imageAPI */
+
+/**
+ * Image API | Upload image
+ * @param {Object} options - options object
+ * @param {String} options.path - relative path for the image you want it will be avialable
+ * @param {File} options.image - image
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, result] = await api.uploadImage({ path: '/avatars/user_1.jpg', image: new Buffer(...) })
+ */
 
 
 Granny.prototype.uploadImage = async function ({
@@ -25671,6 +25759,15 @@ Granny.prototype.uploadImage = async function ({
   return [err, result ? result : null, response];
 };
 /* directoryAPI */
+
+/**
+ * Directory API | Get listing for given path
+ * @param {Object} options - options object
+ * @param {String} options.path - relative path for getting content
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, result] = await api.listDirectory({ path: '/avatars/' })
+ */
 
 
 Granny.prototype.listDirectory = async function ({
