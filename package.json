@@ -1,0 +1,30 @@
+{
+  "name": "granny",
+  "version": "0.0.1",
+  "keywords": [
+    ""
+  ],
+  "description": "A clint library for Granny image delivery server",
+  "homepage": "https://github.com/mrspartak/granny-js-client",
+  "author": "Spartak <iam@spartak.io> (https://spartak.io/)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrspartak/granny-js-client.git"
+  },
+  "license": "MIT",
+  "main": "src/granny.js",
+  "browser": "build/granny.js",
+  "scripts": {
+    "dev": "watchify src/granny.js -s Granny -v -o build/granny.js",
+    "build": "browserify src/granny.js -s Granny -v -o build/granny.js",
+    "format": "prettier --write \"src/**/*.js\""
+  },
+  "devDependencies": {
+    "browserify": "^16.5.0",
+    "prettier": "1.19.1",
+    "watchify": "^3.11.1"
+  },
+  "dependencies": {
+    "superagent": "^5.2.1"
+  }
+}
