@@ -262,3 +262,83 @@ Granny.prototype.listDirectory = async function({ path }) {
 
 	return [err, result ? result : null, response];
 };
+
+
+/* usersAPI */
+/**
+ * User API [admin_only] | Get all users
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, users] = await api.listUsers()
+ */
+Granny.prototype.listUsers = async function() {
+	var [err, result, response] = await this.request('GET', '/user/list', {}, { auth: ['accessToken'] });
+	return [err, result ? result.users : null, response];
+};
+
+/**
+ * User API [admin_only] | Add new users
+ * @param {Object} options - options object
+ * @param {String} options.login - user login
+ * @param {String} options.password - user password
+ * @param {String} options.role - user role [admin|client], default client
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, login] = await api.addUser({lodin: 'sampleuser', password: 'samplepassword'})
+ */
+Granny.prototype.addUser = async function({login, password, role = 'client'}) {
+	var [err, result, response] = await this.request(
+		'POST',
+		'/user/add',
+		{
+			form: {
+				login, 
+				password,
+				role
+			},
+		},
+		{ auth: ['accessToken'] },
+	);
+	return [err, result ? result.login : null, response];
+};
+
+/**
+ * User API [admin_only] | Get user information
+ * @param {Object} options - options object
+ * @param {String} options.login - user login
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, user] = await api.getUser({ login: 'sampleuser' })
+ */
+Granny.prototype.getUser = async function({ login }) {
+	var [err, result, response] = await this.request('GET', '/user/id/' + login, {}, { auth: ['accessToken'] });
+	return [err, result ? result.user : null, response];
+};
+
+/**
+ * User API [admin_only] | Edit user
+ * @param {Object} options - options object
+ * @param {String} options.login - login of user to edit
+ * @param {String} options.password - new user password
+ * @param {String} options.role - new user role [admin|client]
+ * @param {Array} options.domains - list of domains belongs to user
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, changed] = await api.editUser({lodin: 'sampleuser', domains: ['5e35ce81cd91107c2ca1ab64'], role: 'client'})
+ */
+Granny.prototype.editUser = async function({login, password = false, role = false, domains = false}) {
+	var [err, result, response] = await this.request(
+		'POST',
+		'/user/edit',
+		{
+			form: {
+				login, 
+				password,
+				role,
+				domains
+			},
+		},
+		{ auth: ['accessToken'] },
+	);
+	return [err, result ? result.userChanged : null, response];
+};

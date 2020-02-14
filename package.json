@@ -18,7 +18,7 @@
     "dev": "watchify src/index.js -s Granny -v -o build/index.js",
     "build": "cp src/index.js tmp/index.js && browserify tmp/index.js -s Granny -v -o build/index.js",
     "format": "prettier --write \"src/**/*.js\"",
-    "doc": "documentation build src/index.js -f md > API.md",
+    "doc": "cp src/index.js tmp/index.js && documentation build tmp/index.js -f md > API.md",
     "prepare": "npm run build",
     "prepublishOnly": "npm run format && npm run doc",
     "preversion": "npm run format",
