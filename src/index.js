@@ -263,7 +263,6 @@ Granny.prototype.listDirectory = async function({ path }) {
 	return [err, result ? result : null, response];
 };
 
-
 /* usersAPI */
 /**
  * User API [admin_only] | Get all users
@@ -286,15 +285,15 @@ Granny.prototype.listUsers = async function() {
  * @example
  * var [err, login] = await api.addUser({lodin: 'sampleuser', password: 'samplepassword'})
  */
-Granny.prototype.addUser = async function({login, password, role = 'client'}) {
+Granny.prototype.addUser = async function({ login, password, role = 'client' }) {
 	var [err, result, response] = await this.request(
 		'POST',
 		'/user/add',
 		{
 			form: {
-				login, 
+				login,
 				password,
-				role
+				role,
 			},
 		},
 		{ auth: ['accessToken'] },
@@ -326,16 +325,16 @@ Granny.prototype.getUser = async function({ login }) {
  * @example
  * var [err, changed] = await api.editUser({lodin: 'sampleuser', domains: ['5e35ce81cd91107c2ca1ab64'], role: 'client'})
  */
-Granny.prototype.editUser = async function({login, password = false, role = false, domains = false}) {
+Granny.prototype.editUser = async function({ login, password = false, role = false, domains = false }) {
 	var [err, result, response] = await this.request(
 		'POST',
 		'/user/edit',
 		{
 			form: {
-				login, 
+				login,
 				password,
 				role,
-				domains
+				domains,
 			},
 		},
 		{ auth: ['accessToken'] },
