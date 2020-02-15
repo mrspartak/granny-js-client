@@ -25700,6 +25700,38 @@ Granny.prototype.addDomain = async function ({
   return [err, result ? result.domain : null, response];
 };
 /**
+ * Domain API | Edit domain
+ * @param {Object} options - options object
+ * @param {String} options.domain - domain to edit
+ * @param {Array} options.referer - list of strings to allow referer request. * - any, __allow_direct__ - direct request, 'string' any string or regex to match referer
+ * @param {Array} options.ttl - time in hours to cache modified image, 0 - no ttl
+ * @param {Array} options.users - list of users belongs to domain
+ * @returns {Promise} [Error, Result]
+ * @example
+ * //mywebsite.com will match any url containing this string, so subdomains too
+ * var [err, changed] = await api.editUser({domain: 'cdn.example.com', users: ['5e35ce81cd91107c2ca1ab64'], referer: ['mywebsite.com', '__allow_direct__']})
+ */
+
+
+Granny.prototype.editDomain = async function ({
+  domain,
+  referer = false,
+  ttl = false,
+  users = false
+}) {
+  var [err, result, response] = await this.request('POST', '/domain/edit', {
+    form: {
+      domain,
+      referer,
+      ttl,
+      users
+    }
+  }, {
+    auth: ['accessToken']
+  });
+  return [err, result ? result.domainChanged : null, response];
+};
+/**
  * Domain API | Get all domain information
  * @param {Object} options - options object
  * @param {String} options.domain - full domain name
