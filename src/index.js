@@ -282,8 +282,8 @@ Granny.prototype.getImage = async function({ path }) {
 		'/image/info',
 		{
 			query: {
-				path
-			}
+				path,
+			},
 		},
 		{ auth: ['accessKey'] },
 	);
@@ -305,8 +305,8 @@ Granny.prototype.deleteImage = async function({ path }) {
 		'/image/delete',
 		{
 			form: {
-				path
-			}
+				path,
+			},
 		},
 		{ auth: ['accessKey'] },
 	);
