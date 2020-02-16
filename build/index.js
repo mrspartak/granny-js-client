@@ -25704,7 +25704,7 @@ Granny.prototype.addDomain = async function ({
  * @param {Object} options - options object
  * @param {String} options.domain - domain to edit
  * @param {Array} options.referer - list of strings to allow referer request. * - any, __allow_direct__ - direct request, 'string' any string or regex to match referer
- * @param {Array} options.ttl - time in hours to cache modified image, 0 - no ttl
+ * @param {Array} options.ttl - time in hours to cache modified image, 0 - do not cache modified image
  * @param {Array} options.users - list of users belongs to domain
  * @returns {Promise} [Error, Result]
  * @example

@@ -160,7 +160,7 @@ Domain API | Edit domain
 -   `options` **[Object][45]** options object
     -   `options.domain` **[String][46]** domain to edit
     -   `options.referer` **[Array][48]** list of strings to allow referer request. \* - any, **allow_direct** - direct request, 'string' any string or regex to match referer (optional, default `false`)
-    -   `options.ttl` **[Array][48]** time in hours to cache modified image, 0 - no ttl (optional, default `false`)
+    -   `options.ttl` **[Array][48]** time in hours to cache modified image, 0 - do not cache modified image (optional, default `false`)
     -   `options.users` **[Array][48]** list of users belongs to domain (optional, default `false`)
 
 #### Examples
