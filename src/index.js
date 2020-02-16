@@ -268,6 +268,52 @@ Granny.prototype.uploadImage = async function({ path, image }) {
 	return [err, result ? result : null, response];
 };
 
+/**
+ * Image API | Get image information
+ * @param {Object} options - options object
+ * @param {String} options.path - relative path for the image you want it will be avialable
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, image] = await api.getImage({ path: '/avatars/user_1.jpg' })
+ */
+Granny.prototype.getImage = async function({ path }) {
+	var [err, result, response] = await this.request(
+		'GET',
+		'/image/info',
+		{
+			query: {
+				path
+			}
+		},
+		{ auth: ['accessKey'] },
+	);
+
+	return [err, result ? result.image : null, response];
+};
+
+/**
+ * Image API | Delete image
+ * @param {Object} options - options object
+ * @param {String} options.path - relative path for the image you want it will be avialable
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, deleted] = await api.deleteImage({ path: '/avatars/user_1.jpg' })
+ */
+Granny.prototype.deleteImage = async function({ path }) {
+	var [err, result, response] = await this.request(
+		'POST',
+		'/image/delete',
+		{
+			form: {
+				path
+			}
+		},
+		{ auth: ['accessKey'] },
+	);
+
+	return [err, result ? result.success : false, response];
+};
+
 /* directoryAPI */
 /**
  * Directory API | Get listing for given path
