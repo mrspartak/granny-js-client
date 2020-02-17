@@ -1,7 +1,8 @@
 # A client library from Granny server
 A library for Granny image delivery server
 
-[![npm](https://img.shields.io/npm/v/granny?style=for-the-badge)](https://www.npmjs.com/package/granny)
+[![npm](https://img.shields.io/npm/v/granny?style=for-the-badge)](https://www.npmjs.com/package/granny) 
+[![Join the chat at https://gitter.im/granny-js/community](https://img.shields.io/gitter/room/granny-js/community?style=for-the-badge)](https://gitter.im/granny-js/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Ecosystem
 ![image](https://user-images.githubusercontent.com/993910/74678258-8f250380-51cb-11ea-9b5e-1640e713380e.PNG)
