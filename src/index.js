@@ -196,12 +196,13 @@ Granny.prototype.addDomain = async function({ domain }) {
  * @param {Array} options.referer - list of strings to allow referer request. * - any, __allow_direct__ - direct request, 'string' any string or regex to match referer
  * @param {Array} options.ttl - time in hours to cache modified image, 0 - do not cache modified image
  * @param {Array} options.users - list of users belongs to domain
+ * @param {Number} options.maxSize - max size of bucket in bytes (can be changed only by admin) 0 - unlimited
  * @returns {Promise} [Error, Result]
  * @example
  * //mywebsite.com will match any url containing this string, so subdomains too
- * var [err, changed] = await api.editUser({domain: 'cdn.example.com', users: ['5e35ce81cd91107c2ca1ab64'], referer: ['mywebsite.com', '__allow_direct__']})
+ * var [err, changed] = await api.editDomain({domain: 'cdn.example.com', users: ['5e35ce81cd91107c2ca1ab64'], referer: ['mywebsite.com', '__allow_direct__']})
  */
-Granny.prototype.editDomain = async function({ domain, referer = false, ttl = false, users = false }) {
+Granny.prototype.editDomain = async function({ domain, referer = false, ttl = false, users = false, maxSize = false }) {
 	var [err, result, response] = await this.request(
 		'POST',
 		'/domain/edit',
@@ -211,6 +212,7 @@ Granny.prototype.editDomain = async function({ domain, referer = false, ttl = fa
 				referer,
 				ttl,
 				users,
+				maxSize
 			},
 		},
 		{ auth: ['accessToken'] },
@@ -396,11 +398,12 @@ Granny.prototype.getUser = async function({ login }) {
  * @param {String} options.password - new user password
  * @param {String} options.role - new user role [admin|client]
  * @param {Array} options.domains - list of domains belongs to user
+ * @param {Boolean} options.canAddDomains - allow/disallow user to add domains
  * @returns {Promise} [Error, Result]
  * @example
  * var [err, changed] = await api.editUser({lodin: 'sampleuser', domains: ['5e35ce81cd91107c2ca1ab64'], role: 'client'})
  */
-Granny.prototype.editUser = async function({ login, password = false, role = false, domains = false }) {
+Granny.prototype.editUser = async function({ login, password = false, role = false, domains = false, canAddDomains = false }) {
 	var [err, result, response] = await this.request(
 		'POST',
 		'/user/edit',
@@ -410,6 +413,7 @@ Granny.prototype.editUser = async function({ login, password = false, role = fal
 				password,
 				role,
 				domains,
+				canAddDomains
 			},
 		},
 		{ auth: ['accessToken'] },
