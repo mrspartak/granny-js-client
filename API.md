@@ -168,12 +168,13 @@ Domain API | Edit domain
     -   `options.referer` **[Array][54]** list of strings to allow referer request. \* - any, **allow_direct** - direct request, 'string' any string or regex to match referer (optional, default `false`)
     -   `options.ttl` **[Array][54]** time in hours to cache modified image, 0 - do not cache modified image (optional, default `false`)
     -   `options.users` **[Array][54]** list of users belongs to domain (optional, default `false`)
+    -   `options.maxSize` **[Number][55]** max size of bucket in bytes (can be changed only by admin) 0 - unlimited (optional, default `false`)
 
 #### Examples
 
 ```javascript
 //mywebsite.com will match any url containing this string, so subdomains too
-var [err, changed] = await api.editUser({domain: 'cdn.example.com', users: ['5e35ce81cd91107c2ca1ab64'], referer: ['mywebsite.com', '__allow_direct__']})
+var [err, changed] = await api.editDomain({domain: 'cdn.example.com', users: ['5e35ce81cd91107c2ca1ab64'], referer: ['mywebsite.com', '__allow_direct__']})
 ```
 
 Returns **[Promise][53]** [Error, Result]
@@ -335,6 +336,7 @@ User API [admin_only] | Edit user
     -   `options.password` **[String][52]** new user password (optional, default `false`)
     -   `options.role` **[String][52]** new user role [admin|client] (optional, default `false`)
     -   `options.domains` **[Array][54]** list of domains belongs to user (optional, default `false`)
+    -   `options.canAddDomains` **[Boolean][56]** allow/disallow user to add domains (optional, default `false`)
 
 #### Examples
 
@@ -451,3 +453,7 @@ Returns **[Promise][53]** [Error, Result]
 [53]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
 [54]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[55]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[56]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean

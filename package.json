@@ -20,9 +20,8 @@
     "format": "prettier --write \"src/**/*.js\"",
     "doc": "cp src/index.js tmp/index.js && documentation build tmp/index.js -f md > API.md",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run format && npm run doc",
     "preversion": "npm run format",
-    "version": "npm run format && git add -A src",
+    "version": "npm run format && npm run doc && git add -A src",
     "postversion": "git push && git push --tags"
   },
   "devDependencies": {
