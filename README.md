@@ -4,11 +4,12 @@ A library for Granny image delivery server
 [![npm](https://img.shields.io/npm/v/granny?style=for-the-badge)](https://www.npmjs.com/package/granny)
 
 ## Ecosystem
-![image](https://user-images.githubusercontent.com/993910/74383777-e8261d80-4e00-11ea-8373-25070ec1ca97.png)
+![image](https://user-images.githubusercontent.com/993910/74651014-fcb53d80-5193-11ea-997a-b1f394201922.PNG)
 
 [granny-server-backend](https://github.com/mrspartak/granny-server-backend "granny-server-backend") - Backend service with API exposed to upload and serve/manipulate images  
 [granny-js-client](https://github.com/mrspartak/granny-js-client "granny-js-client") - Client library that works both in nodejs and browser. Makes API calls easier  
 [granny-server-frontend](https://github.com/mrspartak/granny-server-frontend "granny-server-frontend") - Frontend APP that uses client to manage your CDN domains and settings  
+[granny-server-cron](https://github.com/mrspartak/granny-server-cron "granny-server-cron") - Utility app  
 
 ## Setup
 This library can be used in both nodejs and browser environment. Browser clint made only for staging or admin panel development, because you can expose your credentials in browser.
