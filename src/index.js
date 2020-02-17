@@ -212,7 +212,7 @@ Granny.prototype.editDomain = async function({ domain, referer = false, ttl = fa
 				referer,
 				ttl,
 				users,
-				maxSize
+				maxSize,
 			},
 		},
 		{ auth: ['accessToken'] },
@@ -403,7 +403,13 @@ Granny.prototype.getUser = async function({ login }) {
  * @example
  * var [err, changed] = await api.editUser({lodin: 'sampleuser', domains: ['5e35ce81cd91107c2ca1ab64'], role: 'client'})
  */
-Granny.prototype.editUser = async function({ login, password = false, role = false, domains = false, canAddDomains = false }) {
+Granny.prototype.editUser = async function({
+	login,
+	password = false,
+	role = false,
+	domains = false,
+	canAddDomains = false,
+}) {
 	var [err, result, response] = await this.request(
 		'POST',
 		'/user/edit',
@@ -413,7 +419,7 @@ Granny.prototype.editUser = async function({ login, password = false, role = fal
 				password,
 				role,
 				domains,
-				canAddDomains
+				canAddDomains,
 			},
 		},
 		{ auth: ['accessToken'] },
