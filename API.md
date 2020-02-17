@@ -12,46 +12,48 @@
         -   [Parameters][8]
     -   [getStatus][9]
         -   [Examples][10]
-    -   [setup][11]
-        -   [Parameters][12]
-        -   [Examples][13]
-    -   [login][14]
-        -   [Parameters][15]
-        -   [Examples][16]
-    -   [addDomain][17]
-        -   [Parameters][18]
-        -   [Examples][19]
-    -   [editDomain][20]
-        -   [Parameters][21]
-        -   [Examples][22]
-    -   [getDomain][23]
-        -   [Parameters][24]
-        -   [Examples][25]
-    -   [listDomains][26]
+    -   [getMe][11]
+        -   [Examples][12]
+    -   [setup][13]
+        -   [Parameters][14]
+        -   [Examples][15]
+    -   [login][16]
+        -   [Parameters][17]
+        -   [Examples][18]
+    -   [addDomain][19]
+        -   [Parameters][20]
+        -   [Examples][21]
+    -   [editDomain][22]
+        -   [Parameters][23]
+        -   [Examples][24]
+    -   [getDomain][25]
+        -   [Parameters][26]
         -   [Examples][27]
-    -   [uploadImage][28]
-        -   [Parameters][29]
-        -   [Examples][30]
-    -   [getImage][31]
-        -   [Parameters][32]
-        -   [Examples][33]
-    -   [deleteImage][34]
-        -   [Parameters][35]
-        -   [Examples][36]
-    -   [listDirectory][37]
-        -   [Parameters][38]
-        -   [Examples][39]
-    -   [listUsers][40]
+    -   [listDomains][28]
+        -   [Examples][29]
+    -   [uploadImage][30]
+        -   [Parameters][31]
+        -   [Examples][32]
+    -   [getImage][33]
+        -   [Parameters][34]
+        -   [Examples][35]
+    -   [deleteImage][36]
+        -   [Parameters][37]
+        -   [Examples][38]
+    -   [listDirectory][39]
+        -   [Parameters][40]
         -   [Examples][41]
-    -   [addUser][42]
-        -   [Parameters][43]
-        -   [Examples][44]
-    -   [getUser][45]
-        -   [Parameters][46]
-        -   [Examples][47]
-    -   [editUser][48]
-        -   [Parameters][49]
-        -   [Examples][50]
+    -   [listUsers][42]
+        -   [Examples][43]
+    -   [addUser][44]
+        -   [Parameters][45]
+        -   [Examples][46]
+    -   [getUser][47]
+        -   [Parameters][48]
+        -   [Examples][49]
+    -   [editUser][50]
+        -   [Parameters][51]
+        -   [Examples][52]
 
 ## Granny
 
@@ -59,11 +61,11 @@ A Granny API contructor
 
 ### Parameters
 
--   `options` **[Object][51]** Setup object (optional, default `{}`)
-    -   `options.accessToken` **[string][52]** Login acces token to use for managment API
-    -   `options.domain` **[string][52]** Granny server domain to send API request to
-    -   `options.accessKey` **[string][52]** Granny server domain accessKey
-    -   `options.accessSecret` **[string][52]** Granny server domain accessSecret
+-   `options` **[Object][53]** Setup object (optional, default `{}`)
+    -   `options.accessToken` **[string][54]** Login acces token to use for managment API
+    -   `options.domain` **[string][54]** Granny server domain to send API request to
+    -   `options.accessKey` **[string][54]** Granny server domain accessKey
+    -   `options.accessSecret` **[string][54]** Granny server domain accessSecret
 
 ### setOptions
 
@@ -71,10 +73,10 @@ Update domain specific options
 
 #### Parameters
 
--   `options` **[Object][51]** Setup object
-    -   `options.domain` **[string][52]** Granny server domain to send API request to
-    -   `options.accessKey` **[string][52]** Granny server domain accessKey
-    -   `options.accessSecret` **[string][52]** Granny server domain accessSecret
+-   `options` **[Object][53]** Setup object
+    -   `options.domain` **[string][54]** Granny server domain to send API request to
+    -   `options.accessKey` **[string][54]** Granny server domain accessKey
+    -   `options.accessSecret` **[string][54]** Granny server domain accessSecret
 
 ### setAccessToken
 
@@ -82,7 +84,7 @@ Update login access token
 
 #### Parameters
 
--   `token` **[string][52]** Login acces token to use for managment API
+-   `token` **[string][54]** Login acces token to use for managment API
 
 ### setDomain
 
@@ -90,7 +92,7 @@ Update domain to send API to
 
 #### Parameters
 
--   `domain` **[string][52]** 
+-   `domain` **[string][54]** 
 
 ### getStatus
 
@@ -102,7 +104,19 @@ Open API | Get server/client status
 var [err, result] = await api.getStatus()
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
+
+### getMe
+
+Open API | Get info about current user
+
+#### Examples
+
+```javascript
+var [err, result] = await api.getMe()
+```
+
+Returns **[Promise][55]** [Error, Result]
 
 ### setup
 
@@ -110,9 +124,9 @@ Auth API | Setup server with your credentials when first launched
 
 #### Parameters
 
--   `credentials` **[Object][51]** credentials object
-    -   `credentials.login` **[String][52]** 
-    -   `credentials.password` **[String][52]** 
+-   `credentials` **[Object][53]** credentials object
+    -   `credentials.login` **[String][54]** 
+    -   `credentials.password` **[String][54]** 
 
 #### Examples
 
@@ -120,7 +134,7 @@ Auth API | Setup server with your credentials when first launched
 var [err, result] = await api.setup({ login: 'login', password: 'password' })
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
 
 ### login
 
@@ -128,9 +142,9 @@ Auth API | Login and get your access token
 
 #### Parameters
 
--   `credentials` **[Object][51]** credentials object
-    -   `credentials.login` **[String][52]** 
-    -   `credentials.password` **[String][52]** 
+-   `credentials` **[Object][53]** credentials object
+    -   `credentials.login` **[String][54]** 
+    -   `credentials.password` **[String][54]** 
 
 #### Examples
 
@@ -138,7 +152,7 @@ Auth API | Login and get your access token
 var [err, result] = await api.login({ login: 'login', password: 'password' })
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
 
 ### addDomain
 
@@ -146,8 +160,8 @@ Domain API | Add new domain to serve your files
 
 #### Parameters
 
--   `options` **[Object][51]** options object
-    -   `options.domain` **[String][52]** full domain name
+-   `options` **[Object][53]** options object
+    -   `options.domain` **[String][54]** full domain name
 
 #### Examples
 
@@ -155,7 +169,7 @@ Domain API | Add new domain to serve your files
 var [err, result] = await api.addDomain({ domain: 'cdn.example.com' })
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
 
 ### editDomain
 
@@ -163,12 +177,12 @@ Domain API | Edit domain
 
 #### Parameters
 
--   `options` **[Object][51]** options object
-    -   `options.domain` **[String][52]** domain to edit
-    -   `options.referer` **[Array][54]** list of strings to allow referer request. \* - any, **allow_direct** - direct request, 'string' any string or regex to match referer (optional, default `false`)
-    -   `options.ttl` **[Array][54]** time in hours to cache modified image, 0 - do not cache modified image (optional, default `false`)
-    -   `options.users` **[Array][54]** list of users belongs to domain (optional, default `false`)
-    -   `options.maxSize` **[Number][55]** max size of bucket in bytes (can be changed only by admin) 0 - unlimited (optional, default `false`)
+-   `options` **[Object][53]** options object
+    -   `options.domain` **[String][54]** domain to edit
+    -   `options.referer` **[Array][56]** list of strings to allow referer request. \* - any, **allow_direct** - direct request, 'string' any string or regex to match referer (optional, default `false`)
+    -   `options.ttl` **[Array][56]** time in hours to cache modified image, 0 - do not cache modified image (optional, default `false`)
+    -   `options.users` **[Array][56]** list of users belongs to domain (optional, default `false`)
+    -   `options.maxSize` **[Number][57]** max size of bucket in bytes (can be changed only by admin) 0 - unlimited (optional, default `false`)
 
 #### Examples
 
@@ -177,7 +191,7 @@ Domain API | Edit domain
 var [err, changed] = await api.editDomain({domain: 'cdn.example.com', users: ['5e35ce81cd91107c2ca1ab64'], referer: ['mywebsite.com', '__allow_direct__']})
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
 
 ### getDomain
 
@@ -185,8 +199,8 @@ Domain API | Get all domain information
 
 #### Parameters
 
--   `options` **[Object][51]** options object
-    -   `options.domain` **[String][52]** full domain name
+-   `options` **[Object][53]** options object
+    -   `options.domain` **[String][54]** full domain name
 
 #### Examples
 
@@ -194,7 +208,7 @@ Domain API | Get all domain information
 var [err, result] = await api.getDomain({ domain: 'cdn.example.com' })
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
 
 ### listDomains
 
@@ -206,7 +220,7 @@ Domain API | Get all domains
 var [err, result] = await api.listDomains()
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
 
 ### uploadImage
 
@@ -214,8 +228,8 @@ Image API | Upload image
 
 #### Parameters
 
--   `options` **[Object][51]** options object
-    -   `options.path` **[String][52]** relative path for the image you want it will be avialable
+-   `options` **[Object][53]** options object
+    -   `options.path` **[String][54]** relative path for the image you want it will be avialable
     -   `options.image` **File** image
 
 #### Examples
@@ -224,7 +238,7 @@ Image API | Upload image
 var [err, result] = await api.uploadImage({ path: '/avatars/user_1.jpg', image: new Buffer(...) })
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
 
 ### getImage
 
@@ -232,8 +246,8 @@ Image API | Get image information
 
 #### Parameters
 
--   `options` **[Object][51]** options object
-    -   `options.path` **[String][52]** relative path for the image you want it will be avialable
+-   `options` **[Object][53]** options object
+    -   `options.path` **[String][54]** relative path for the image you want it will be avialable
 
 #### Examples
 
@@ -241,7 +255,7 @@ Image API | Get image information
 var [err, image] = await api.getImage({ path: '/avatars/user_1.jpg' })
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
 
 ### deleteImage
 
@@ -249,8 +263,8 @@ Image API | Delete image
 
 #### Parameters
 
--   `options` **[Object][51]** options object
-    -   `options.path` **[String][52]** relative path for the image you want it will be avialable
+-   `options` **[Object][53]** options object
+    -   `options.path` **[String][54]** relative path for the image you want it will be avialable
 
 #### Examples
 
@@ -258,7 +272,7 @@ Image API | Delete image
 var [err, deleted] = await api.deleteImage({ path: '/avatars/user_1.jpg' })
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
 
 ### listDirectory
 
@@ -266,8 +280,8 @@ Directory API | Get listing for given path
 
 #### Parameters
 
--   `options` **[Object][51]** options object
-    -   `options.path` **[String][52]** relative path for getting content
+-   `options` **[Object][53]** options object
+    -   `options.path` **[String][54]** relative path for getting content
 
 #### Examples
 
@@ -275,7 +289,7 @@ Directory API | Get listing for given path
 var [err, result] = await api.listDirectory({ path: '/avatars/' })
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
 
 ### listUsers
 
@@ -287,7 +301,7 @@ User API [admin_only] | Get all users
 var [err, users] = await api.listUsers()
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
 
 ### addUser
 
@@ -295,10 +309,10 @@ User API [admin_only] | Add new users
 
 #### Parameters
 
--   `options` **[Object][51]** options object
-    -   `options.login` **[String][52]** user login
-    -   `options.password` **[String][52]** user password
-    -   `options.role` **[String][52]** user role [admin|client], default client (optional, default `'client'`)
+-   `options` **[Object][53]** options object
+    -   `options.login` **[String][54]** user login
+    -   `options.password` **[String][54]** user password
+    -   `options.role` **[String][54]** user role [admin|client], default client (optional, default `'client'`)
 
 #### Examples
 
@@ -306,7 +320,7 @@ User API [admin_only] | Add new users
 var [err, login] = await api.addUser({lodin: 'sampleuser', password: 'samplepassword'})
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
 
 ### getUser
 
@@ -314,8 +328,8 @@ User API [admin_only] | Get user information
 
 #### Parameters
 
--   `options` **[Object][51]** options object
-    -   `options.login` **[String][52]** user login
+-   `options` **[Object][53]** options object
+    -   `options.login` **[String][54]** user login
 
 #### Examples
 
@@ -323,7 +337,7 @@ User API [admin_only] | Get user information
 var [err, user] = await api.getUser({ login: 'sampleuser' })
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
 
 ### editUser
 
@@ -331,12 +345,12 @@ User API [admin_only] | Edit user
 
 #### Parameters
 
--   `options` **[Object][51]** options object
-    -   `options.login` **[String][52]** login of user to edit
-    -   `options.password` **[String][52]** new user password (optional, default `false`)
-    -   `options.role` **[String][52]** new user role [admin|client] (optional, default `false`)
-    -   `options.domains` **[Array][54]** list of domains belongs to user (optional, default `false`)
-    -   `options.canAddDomains` **[Boolean][56]** allow/disallow user to add domains (optional, default `false`)
+-   `options` **[Object][53]** options object
+    -   `options.login` **[String][54]** login of user to edit
+    -   `options.password` **[String][54]** new user password (optional, default `false`)
+    -   `options.role` **[String][54]** new user role [admin|client] (optional, default `false`)
+    -   `options.domains` **[Array][56]** list of domains belongs to user (optional, default `false`)
+    -   `options.canAddDomains` **[Boolean][58]** allow/disallow user to add domains (optional, default `false`)
 
 #### Examples
 
@@ -344,7 +358,7 @@ User API [admin_only] | Edit user
 var [err, changed] = await api.editUser({lodin: 'sampleuser', domains: ['5e35ce81cd91107c2ca1ab64'], role: 'client'})
 ```
 
-Returns **[Promise][53]** [Error, Result]
+Returns **[Promise][55]** [Error, Result]
 
 [1]: #granny
 
@@ -366,94 +380,98 @@ Returns **[Promise][53]** [Error, Result]
 
 [10]: #examples
 
-[11]: #setup
+[11]: #getme
 
-[12]: #parameters-4
+[12]: #examples-1
 
-[13]: #examples-1
+[13]: #setup
 
-[14]: #login
+[14]: #parameters-4
 
-[15]: #parameters-5
+[15]: #examples-2
 
-[16]: #examples-2
+[16]: #login
 
-[17]: #adddomain
+[17]: #parameters-5
 
-[18]: #parameters-6
+[18]: #examples-3
 
-[19]: #examples-3
+[19]: #adddomain
 
-[20]: #editdomain
+[20]: #parameters-6
 
-[21]: #parameters-7
+[21]: #examples-4
 
-[22]: #examples-4
+[22]: #editdomain
 
-[23]: #getdomain
+[23]: #parameters-7
 
-[24]: #parameters-8
+[24]: #examples-5
 
-[25]: #examples-5
+[25]: #getdomain
 
-[26]: #listdomains
+[26]: #parameters-8
 
 [27]: #examples-6
 
-[28]: #uploadimage
+[28]: #listdomains
 
-[29]: #parameters-9
+[29]: #examples-7
 
-[30]: #examples-7
+[30]: #uploadimage
 
-[31]: #getimage
+[31]: #parameters-9
 
-[32]: #parameters-10
+[32]: #examples-8
 
-[33]: #examples-8
+[33]: #getimage
 
-[34]: #deleteimage
+[34]: #parameters-10
 
-[35]: #parameters-11
+[35]: #examples-9
 
-[36]: #examples-9
+[36]: #deleteimage
 
-[37]: #listdirectory
+[37]: #parameters-11
 
-[38]: #parameters-12
+[38]: #examples-10
 
-[39]: #examples-10
+[39]: #listdirectory
 
-[40]: #listusers
+[40]: #parameters-12
 
 [41]: #examples-11
 
-[42]: #adduser
+[42]: #listusers
 
-[43]: #parameters-13
+[43]: #examples-12
 
-[44]: #examples-12
+[44]: #adduser
 
-[45]: #getuser
+[45]: #parameters-13
 
-[46]: #parameters-14
+[46]: #examples-13
 
-[47]: #examples-13
+[47]: #getuser
 
-[48]: #edituser
+[48]: #parameters-14
 
-[49]: #parameters-15
+[49]: #examples-14
 
-[50]: #examples-14
+[50]: #edituser
 
-[51]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[51]: #parameters-15
 
-[52]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[52]: #examples-15
 
-[53]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[53]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[54]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[54]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[55]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[55]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[56]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[56]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[57]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[58]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean

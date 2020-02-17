@@ -25621,9 +25621,24 @@ Granny.prototype.request = async function (method, path, data = {}, options = {}
 
 
 Granny.prototype.getStatus = async function () {
-  return await this.request('GET', '/_status', {}, {
+  var [err, result, response] = await this.request('GET', '/_status', {}, {
     auth: ['accessToken']
   });
+  return [err, result ? result : null, response];
+};
+/**
+ * Open API | Get info about current user
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, result] = await api.getMe()
+ */
+
+
+Granny.prototype.getMe = async function () {
+  var [err, result, response] = await this.request('GET', '/_me', {}, {
+    auth: ['accessToken']
+  });
+  return [err, result ? result.user : null, response];
 };
 /* authAPI */
 
