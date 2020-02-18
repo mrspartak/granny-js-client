@@ -204,7 +204,7 @@ Granny.prototype.addDomain = async function({ domain, s3 = {}, createBucket = tr
 				domain,
 				s3,
 				bucket,
-				createBucket
+				createBucket,
 			},
 		},
 		{ auth: ['accessToken'] },
@@ -276,14 +276,7 @@ Granny.prototype.listDomains = async function() {
  * var [err, deleted] = await api.deleteDomain({ domain : 'cdn.example.com' })
  */
 Granny.prototype.deleteDomain = async function({ domain }) {
-	var [err, result, response] = await this.request(
-		'POST',
-		'/domain/delete/'+ domain,
-		{
-			
-		},
-		{ auth: ['accessToken'] }
-	);
+	var [err, result, response] = await this.request('POST', '/domain/delete/' + domain, {}, { auth: ['accessToken'] });
 
 	return [err, result ? result.success : false, response];
 };
