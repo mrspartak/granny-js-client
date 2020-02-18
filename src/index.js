@@ -183,17 +183,28 @@ Granny.prototype.login = async function({ login, password }) {
  * Domain API | Add new domain to serve your files
  * @param {Object} options - options object
  * @param {String} options.domain - full domain name
+ * @param {String} [options.bucket=options.domain] - if you need specific bucket name.
+ * @param {Object} options.s3 - S3 storage connection option
+ * @param {String} options.s3.endPoint - S3 storage endPoint like s3.amazonaws.com
+ * @param {String} options.s3.accessKey - S3 storage accessKey
+ * @param {String} options.s3.secretKey - S3 storage secretKey
+ * @param {(Number|Boolean)} [options.s3.port=false] - S3 storage port, for example if you ue local S3 storage Minio
+ * @param {Boolean} [options.s3.useSSL] - S3 storage use SSL connection
+ * @param {Boolean} [options.createBucket = true] - You can set false if you want to use existing bucket
  * @returns {Promise} [Error, Result]
  * @example
  * var [err, result] = await api.addDomain({ domain: 'cdn.example.com' })
  */
-Granny.prototype.addDomain = async function({ domain }) {
+Granny.prototype.addDomain = async function({ domain, s3 = {}, createBucket = true, bucket = false }) {
 	var [err, result, response] = await this.request(
 		'POST',
 		'/domain/add',
 		{
 			form: {
 				domain,
+				s3,
+				bucket,
+				createBucket
 			},
 		},
 		{ auth: ['accessToken'] },
@@ -254,6 +265,27 @@ Granny.prototype.getDomain = async function({ domain }) {
 Granny.prototype.listDomains = async function() {
 	var [err, result, response] = await this.request('GET', '/domain/list', {}, { auth: ['accessToken'] });
 	return [err, result ? result.domains : null, response];
+};
+
+/**
+ * Domain API | Delete domain and all its files
+ * @param {Object} options - options object
+ * @param {String} options.domain - domain name
+ * @returns {Promise} [Error, Result]
+ * @example
+ * var [err, deleted] = await api.deleteDomain({ domain : 'cdn.example.com' })
+ */
+Granny.prototype.deleteDomain = async function({ domain }) {
+	var [err, result, response] = await this.request(
+		'POST',
+		'/domain/delete/'+ domain,
+		{
+			
+		},
+		{ auth: ['accessToken'] }
+	);
+
+	return [err, result ? result.success : false, response];
 };
 
 /* imageAPI */

@@ -41,13 +41,20 @@ Nodejs
 const Granny = require('granny')
 
 const grannyApi = new Granny({
-	domain: 'https://cdn.example.com',
+	domain: 'https://cdn.example.com', //url to Granny server backend
 	accessKey: 'key',
 	accessSecret: 'secret'
 })
 
 var [err, result] = await grannyApi.uploadImage({path: '/users/sergio.jpeg', image: './tmp/DSCF6278.jpg'})
 console.log(result.imageUrl)
+/*
+	result.imageUrl = https://cdn.example.com/i/users/sergio.jpeg
+
+	Now you can use direct link or modify image on fly
+	https://cdn.example.com/i/r=100/_/users/sergio.jpeg - will resize image to 100x100
+	https://cdn.example.com/i/width=500,format=webp/_/users/sergio.jpeg - will resize to width=500 saving aspect ratio and format to webp
+*/
 ```
 
 ## API
