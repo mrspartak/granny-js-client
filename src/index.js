@@ -1,6 +1,7 @@
 'use strict';
 const superagent = require('superagent');
 const crypto = require('crypto');
+const FileType = require('file-type');
 
 require('util').inherits(Granny, require('events').EventEmitter);
 
@@ -69,7 +70,16 @@ Granny.prototype.request = async function(method, path, data = {}, options = {})
 
 		if (data.query) request = request.query(data.query);
 		if (data.form) request = data.file ? request.field(data.form) : request.send(data.form);
-		if (data.file) request = request.attach('image', data.file);
+		if (data.file) {
+			if(Buffer.isBuffer(data.file)){
+				let type = await FileType.fromBuffer(data.file)
+				let fileName = 'noname'
+				if(type) fileName = `${fileName}.${type.ext}`
+				request = request.attach('image', data.file, fileName);
+			} else {
+				request = request.attach('image', data.file);
+			}
+		}
 
 		request = request.set('Accept', 'application/json');
 
