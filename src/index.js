@@ -35,7 +35,7 @@ function Granny(options = {}) {
  * @param {string} options.accessKey - Granny server domain accessKey
  * @param {string} options.accessSecret - Granny server domain accessSecret
  */
-Granny.prototype.setOptions = function(options) {
+Granny.prototype.setOptions = function (options) {
 	/* Access level / domain */
 	if (options.domain) this.setDomain(options.domain);
 	if (options.accessKey) this.accessKey = options.accessKey;
@@ -46,7 +46,7 @@ Granny.prototype.setOptions = function(options) {
  * Update login access token
  * @param {string} token - Login acces token to use for managment API
  */
-Granny.prototype.setAccessToken = function(token) {
+Granny.prototype.setAccessToken = function (token) {
 	this.accessToken = token;
 };
 
@@ -54,11 +54,11 @@ Granny.prototype.setAccessToken = function(token) {
  * Update domain to send API to
  * @param {string} domain
  */
-Granny.prototype.setDomain = function(domain) {
+Granny.prototype.setDomain = function (domain) {
 	this.domain = domain;
 };
 
-Granny.prototype.request = async function(method, path, data = {}, options = {}) {
+Granny.prototype.request = async function (method, path, data = {}, options = {}) {
 	try {
 		let request = superagent;
 
@@ -92,10 +92,7 @@ Granny.prototype.request = async function(method, path, data = {}, options = {})
 				let sign =
 					this.accessKey +
 					'||' +
-					crypto
-						.createHmac('sha1', this.accessSecret)
-						.update(this.accessKey)
-						.digest('hex');
+					crypto.createHmac('sha1', this.accessSecret).update(this.accessKey).digest('hex');
 
 				if (method == 'POST') request = data.file ? request.field({ sign }) : request.send({ sign });
 				if (method == 'GET') request = request.query({ sign });
@@ -129,7 +126,7 @@ Granny.prototype.request = async function(method, path, data = {}, options = {})
  * @example
  * var [err, result] = await api.getStatus()
  */
-Granny.prototype.getStatus = async function() {
+Granny.prototype.getStatus = async function () {
 	var [err, result, response] = await this.request('GET', '/_status', {}, { auth: ['accessToken'] });
 	return [err, result ? result : null, response];
 };
@@ -140,7 +137,7 @@ Granny.prototype.getStatus = async function() {
  * @example
  * var [err, result] = await api.getMe()
  */
-Granny.prototype.getMe = async function() {
+Granny.prototype.getMe = async function () {
 	var [err, result, response] = await this.request('GET', '/_me', {}, { auth: ['accessToken'] });
 	return [err, result ? result.user : null, response];
 };
@@ -155,7 +152,7 @@ Granny.prototype.getMe = async function() {
  * @example
  * var [err, result] = await api.setup({ login: 'login', password: 'password' })
  */
-Granny.prototype.setup = async function({ login, password }) {
+Granny.prototype.setup = async function ({ login, password }) {
 	var [err, result] = await this.request('POST', '/auth/setup', {
 		form: {
 			login,
@@ -176,7 +173,7 @@ Granny.prototype.setup = async function({ login, password }) {
  * @example
  * var [err, result] = await api.login({ login: 'login', password: 'password' })
  */
-Granny.prototype.login = async function({ login, password }) {
+Granny.prototype.login = async function ({ login, password }) {
 	var [err, result] = await this.request('POST', '/auth/login', {
 		form: {
 			login,
@@ -205,7 +202,7 @@ Granny.prototype.login = async function({ login, password }) {
  * @example
  * var [err, result] = await api.addDomain({ domain: 'cdn.example.com' })
  */
-Granny.prototype.addDomain = async function({ domain, s3 = {}, createBucket = true, bucket = false }) {
+Granny.prototype.addDomain = async function ({ domain, s3 = {}, createBucket = true, bucket = false }) {
 	var [err, result, response] = await this.request(
 		'POST',
 		'/domain/add',
@@ -235,7 +232,13 @@ Granny.prototype.addDomain = async function({ domain, s3 = {}, createBucket = tr
  * //mywebsite.com will match any url containing this string, so subdomains too
  * var [err, changed] = await api.editDomain({domain: 'cdn.example.com', users: ['5e35ce81cd91107c2ca1ab64'], referer: ['mywebsite.com', '__allow_direct__']})
  */
-Granny.prototype.editDomain = async function({ domain, referer = false, ttl = false, users = false, maxSize = false }) {
+Granny.prototype.editDomain = async function ({
+	domain,
+	referer = false,
+	ttl = false,
+	users = false,
+	maxSize = false,
+}) {
 	var [err, result, response] = await this.request(
 		'POST',
 		'/domain/edit',
@@ -261,7 +264,7 @@ Granny.prototype.editDomain = async function({ domain, referer = false, ttl = fa
  * @example
  * var [err, result] = await api.getDomain({ domain: 'cdn.example.com' })
  */
-Granny.prototype.getDomain = async function({ domain }) {
+Granny.prototype.getDomain = async function ({ domain }) {
 	var [err, result, response] = await this.request('GET', '/domain/id/' + domain, {}, { auth: ['accessToken'] });
 	return [err, result ? result.domain : null, response];
 };
@@ -272,7 +275,7 @@ Granny.prototype.getDomain = async function({ domain }) {
  * @example
  * var [err, result] = await api.listDomains()
  */
-Granny.prototype.listDomains = async function() {
+Granny.prototype.listDomains = async function () {
 	var [err, result, response] = await this.request('GET', '/domain/list', {}, { auth: ['accessToken'] });
 	return [err, result ? result.domains : null, response];
 };
@@ -285,7 +288,7 @@ Granny.prototype.listDomains = async function() {
  * @example
  * var [err, deleted] = await api.deleteDomain({ domain : 'cdn.example.com' })
  */
-Granny.prototype.deleteDomain = async function({ domain }) {
+Granny.prototype.deleteDomain = async function ({ domain }) {
 	var [err, result, response] = await this.request('POST', '/domain/delete/' + domain, {}, { auth: ['accessToken'] });
 
 	return [err, result ? result.success : false, response];
@@ -301,7 +304,7 @@ Granny.prototype.deleteDomain = async function({ domain }) {
  * @example
  * var [err, result] = await api.uploadImage({ path: '/avatars/user_1.jpg', image: new Buffer(...) })
  */
-Granny.prototype.uploadImage = async function({ path, image }) {
+Granny.prototype.uploadImage = async function ({ path, image }) {
 	var [err, result, response] = await this.request(
 		'POST',
 		'/image/upload',
@@ -325,7 +328,7 @@ Granny.prototype.uploadImage = async function({ path, image }) {
  * @example
  * var [err, image] = await api.getImage({ path: '/avatars/user_1.jpg' })
  */
-Granny.prototype.getImage = async function({ path }) {
+Granny.prototype.getImage = async function ({ path }) {
 	var [err, result, response] = await this.request(
 		'GET',
 		'/image/info',
@@ -348,7 +351,7 @@ Granny.prototype.getImage = async function({ path }) {
  * @example
  * var [err, deleted] = await api.deleteImage({ path: '/avatars/user_1.jpg' })
  */
-Granny.prototype.deleteImage = async function({ path }) {
+Granny.prototype.deleteImage = async function ({ path }) {
 	var [err, result, response] = await this.request(
 		'POST',
 		'/image/delete',
@@ -372,7 +375,7 @@ Granny.prototype.deleteImage = async function({ path }) {
  * @example
  * var [err, result] = await api.listDirectory({ path: '/avatars/' })
  */
-Granny.prototype.listDirectory = async function({ path }) {
+Granny.prototype.listDirectory = async function ({ path }) {
 	var [err, result, response] = await this.request(
 		'GET',
 		'/directory/list',
@@ -394,7 +397,7 @@ Granny.prototype.listDirectory = async function({ path }) {
  * @example
  * var [err, users] = await api.listUsers()
  */
-Granny.prototype.listUsers = async function() {
+Granny.prototype.listUsers = async function () {
 	var [err, result, response] = await this.request('GET', '/user/list', {}, { auth: ['accessToken'] });
 	return [err, result ? result.users : null, response];
 };
@@ -409,7 +412,7 @@ Granny.prototype.listUsers = async function() {
  * @example
  * var [err, login] = await api.addUser({lodin: 'sampleuser', password: 'samplepassword'})
  */
-Granny.prototype.addUser = async function({ login, password, role = 'client' }) {
+Granny.prototype.addUser = async function ({ login, password, role = 'client' }) {
 	var [err, result, response] = await this.request(
 		'POST',
 		'/user/add',
@@ -433,7 +436,7 @@ Granny.prototype.addUser = async function({ login, password, role = 'client' }) 
  * @example
  * var [err, user] = await api.getUser({ login: 'sampleuser' })
  */
-Granny.prototype.getUser = async function({ login }) {
+Granny.prototype.getUser = async function ({ login }) {
 	var [err, result, response] = await this.request('GET', '/user/id/' + login, {}, { auth: ['accessToken'] });
 	return [err, result ? result.user : null, response];
 };
@@ -450,7 +453,7 @@ Granny.prototype.getUser = async function({ login }) {
  * @example
  * var [err, changed] = await api.editUser({lodin: 'sampleuser', domains: ['5e35ce81cd91107c2ca1ab64'], role: 'client'})
  */
-Granny.prototype.editUser = async function({
+Granny.prototype.editUser = async function ({
 	login,
 	password = false,
 	role = false,
