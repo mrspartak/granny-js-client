@@ -24779,6 +24779,16 @@ async function _fromTokenizer(tokenizer) {
 	}
 
 	if (check([0x25, 0x21])) {
+		await tokenizer.peekBuffer(buffer, {length: 24, mayBeLess: true});
+
+		if (checkString('PS-Adobe-', {offset: 2}) &&
+			checkString(' EPSF-', {offset: 14})) {
+			return {
+				ext: 'eps',
+				mime: 'application/eps'
+			};
+		}
+
 		return {
 			ext: 'ps',
 			mime: 'application/postscript'
@@ -24900,6 +24910,13 @@ async function _fromTokenizer(tokenizer) {
 		return {
 			ext: 'aif',
 			mime: 'audio/aiff'
+		};
+	}
+
+	if (checkString('icns', {offset: 0})) {
+		return {
+			ext: 'icns',
+			mime: 'image/icns'
 		};
 	}
 
@@ -25095,6 +25112,8 @@ async function _fromTokenizer(tokenizer) {
 		// For some cases, we're specific, everything else falls to `video/mp4` with `mp4` extension.
 		const brandMajor = uint8ArrayUtf8ByteString(buffer, 8, 12).replace('\0', ' ').trim();
 		switch (brandMajor) {
+			case 'avif':
+				return {ext: 'avif', mime: 'image/avif'};
 			case 'mif1':
 				return {ext: 'heic', mime: 'image/heif'};
 			case 'msf1':
@@ -25249,7 +25268,7 @@ async function _fromTokenizer(tokenizer) {
 			};
 		}
 
-		if (check([0x1C, 0x00, 0xFE, 0x00], {offset: 8})) {
+		if (check([0x1C, 0x00, 0xFE, 0x00], {offset: 8}) || check([0x1F, 0x00, 0x0B, 0x00], {offset: 8})) {
 			return {
 				ext: 'nef',
 				mime: 'image/x-nikon-nef'
@@ -25425,6 +25444,13 @@ async function _fromTokenizer(tokenizer) {
 		};
 	}
 
+	if (check([0xC5, 0xD0, 0xD3, 0xC6])) {
+		return {
+			ext: 'eps',
+			mime: 'application/eps'
+		};
+	}
+
 	// -- 5-byte signatures --
 
 	if (check([0x4F, 0x54, 0x54, 0x4F, 0x00])) {
@@ -25459,6 +25485,26 @@ async function _fromTokenizer(tokenizer) {
 		return {
 			ext: 'it',
 			mime: 'audio/x-it'
+		};
+	}
+
+	if (
+		checkString('-lh0-', {offset: 2}) ||
+		checkString('-lh1-', {offset: 2}) ||
+		checkString('-lh2-', {offset: 2}) ||
+		checkString('-lh3-', {offset: 2}) ||
+		checkString('-lh4-', {offset: 2}) ||
+		checkString('-lh5-', {offset: 2}) ||
+		checkString('-lh6-', {offset: 2}) ||
+		checkString('-lh7-', {offset: 2}) ||
+		checkString('-lzs-', {offset: 2}) ||
+		checkString('-lz4-', {offset: 2}) ||
+		checkString('-lz5-', {offset: 2}) ||
+		checkString('-lhd-', {offset: 2})
+	) {
+		return {
+			ext: 'lzh',
+			mime: 'application/x-lzh-compressed'
 		};
 	}
 
@@ -25888,6 +25934,13 @@ async function _fromTokenizer(tokenizer) {
 		};
 	}
 
+	if (check([0xFF, 0xFE, 0xFF, 0x0E, 0x53, 0x00, 0x6B, 0x00, 0x65, 0x00, 0x74, 0x00, 0x63, 0x00, 0x68, 0x00, 0x55, 0x00, 0x70, 0x00, 0x20, 0x00, 0x4D, 0x00, 0x6F, 0x00, 0x64, 0x00, 0x65, 0x00, 0x6C, 0x00])) {
+		return {
+			ext: 'skp',
+			mime: 'application/vnd.sketchup.skp'
+		};
+	}
+
 	// Check for MPEG header at different starting offsets
 	for (let start = 0; start < 2 && start < (buffer.length - 16); start++) {
 		// Check MPEG 1 or 2 Layer 3 header, or 'layer 0' for ADTS (MPEG sync-word 0xFFE)
@@ -26007,6 +26060,7 @@ module.exports = {
 		'raf',
 		'tif',
 		'bmp',
+		'icns',
 		'jxr',
 		'psd',
 		'zip',
@@ -26115,7 +26169,11 @@ module.exports = {
 		'it',
 		's3m',
 		'xm',
-		'ai'
+		'ai',
+		'skp',
+		'avif',
+		'eps',
+		'lzh'
 	],
 	mimeTypes: [
 		'image/jpeg',
@@ -26181,6 +26239,7 @@ module.exports = {
 		'image/x-icon',
 		'video/x-flv',
 		'application/postscript',
+		'application/eps',
 		'application/x-xz',
 		'application/x-sqlite3',
 		'application/x-nintendo-nes-rom',
@@ -26208,6 +26267,7 @@ module.exports = {
 		'image/heif-sequence',
 		'image/heic',
 		'image/heic-sequence',
+		'image/icns',
 		'image/ktx',
 		'application/dicom',
 		'audio/x-musepack',
@@ -26235,7 +26295,10 @@ module.exports = {
 		'audio/x-s3m',
 		'audio/x-xm',
 		'video/MP1S',
-		'video/MP2P'
+		'video/MP2P',
+		'application/vnd.sketchup.skp',
+		'image/avif',
+		'application/x-lzh-compressed'
 	]
 };
 
@@ -27240,7 +27303,7 @@ function pushEncodedKeyValuePair(pairs, key, val) {
   if (val === undefined) return;
 
   if (val === null) {
-    pairs.push(encodeURIComponent(key));
+    pairs.push(encodeURI(key));
     return;
   }
 
@@ -27253,7 +27316,7 @@ function pushEncodedKeyValuePair(pairs, key, val) {
       if (Object.prototype.hasOwnProperty.call(val, subkey)) pushEncodedKeyValuePair(pairs, "".concat(key, "[").concat(subkey, "]"), val[subkey]);
     }
   } else {
-    pairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(val));
+    pairs.push(encodeURI(key) + '=' + encodeURIComponent(val));
   }
 }
 /**
@@ -29830,9 +29893,7 @@ Granny.prototype.request = async function (method, path, data = {}, options = {}
     if (data.form) request = data.file ? request.field(data.form) : request.send(data.form);
 
     if (data.file) {
-      console.log('ArrayBuffer', data.file instanceof ArrayBuffer);
-
-      if (Buffer.isBuffer(data.file) || data.file instanceof ArrayBuffer) {
+      if (Buffer.isBuffer(data.file)) {
         let type = await FileType.fromBuffer(data.file);
         let fileName = 'noname';
         if (type) fileName = `${fileName}.${type.ext}`;
